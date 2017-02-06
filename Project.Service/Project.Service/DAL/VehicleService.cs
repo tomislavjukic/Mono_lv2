@@ -36,6 +36,37 @@ namespace Project.Service.DAL
             return Mapper.Map<List<VehicleMakeViewModel>>(db.VehicleMakes.ToList());
         }
 
+        public void CreateVehicleMake (VehicleMakeViewModel vehMakeVM)
+        {
+            //db.VehicleMakes.Add(vehicleMake);
+            db.VehicleMakes.Add(Mapper.Map<VehicleMake>(vehMakeVM));
+            db.SaveChanges();
+        }
+
+        public VehicleMakeViewModel FindIdVehicleMake(Guid? id)
+        {
+            VehicleMake vehMake = db.VehicleMakes.Find(id);
+            return Mapper.Map<VehicleMakeViewModel>(vehMake);
+           // return 0;
+        }
+
+        public void DeleteVehicleMake(Guid? id)
+        {
+            //VehicleMake vehicleMake = db.VehicleMakes.Find(id);
+            //db.VehicleMakes.Remove(vehicleMake);
+            //db.SaveChanges();
+            //return RedirectToAction("Index");
+            VehicleMake vehMake = db.VehicleMakes.Find(id);
+            db.VehicleMakes.Remove(vehMake);
+            db.SaveChanges();
+        }
+
+        public void EditVehicleMake(VehicleMakeViewModel VehicleMakesVM)
+        {
+            db.Entry(Mapper.Map<VehicleMake>(VehicleMakesVM)).State = EntityState.Modified;
+            db.SaveChanges();
+        }
+
         // GET: VehicleMakes
         //public ViewResult Index()
         //    {
