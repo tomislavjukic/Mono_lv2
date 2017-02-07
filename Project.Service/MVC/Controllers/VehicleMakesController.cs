@@ -17,10 +17,57 @@ namespace MVC.Controllers
         VehicleService vehicleService = new VehicleService();
 
         // GET: VehicleMakes
-        public ActionResult Index()
+        //public ActionResult Index()
+        //{
+        //    return View(vehicleService.GetAllVehicleMakes());
+        //}
+
+        public ActionResult Index(string sortOrder, string searchBy, string search)
         {
-            return View(vehicleService.GetAllVehicleMakes());
+            ViewBag.NameSortParm = String.IsNullOrEmpty(sortOrder) ? "name_desc" : "";
+            ViewBag.AbrvSortParm = sortOrder == "Abrv" ? "abrv_desc" : "Abrv";
+
+            if (searchBy == null)
+            {
+                return View(vehicleService.SortMake(sortOrder, "", ""));
+                //return Mapper.Map<IEnumerable<VehicleMakeViewModel>>(db.VehicleMakes.Where(x => x.Abrv == search || search == null).ToList());
+            }
+            else
+            {
+                return View(vehicleService.SortMake(sortOrder, searchBy, search));
+            }
+            //    else
+            //    {
+            //        return Mapper.Map<IEnumerable<VehicleMakeViewModel>>(db.VehicleMakes.Where(x => x.Name.StartsWith(search) || search == null).ToList());
+            //    }
+
+            //var vehicleMakes = from s in vehicleService.GetAllVehicleMakes()
+            //               select s;
+            //if (!String.IsNullOrEmpty(searchString))
+            //{
+            //    //vehicleMakes = vehicleMakes.Where(s => s.Name.Contains(searchString)
+            //    //                       || s.Abrv.Contains(searchString));
+            //}
+            //switch (sortOrder)
+            //{
+            //    case "name_desc":
+            //        vehicleService.GetAllVehicleMakes() = vehicleMakes.OrderByDescending(s => s.Name);
+            //        break;
+            //    case "Abrv":
+            //        vehicleMakes = vehicleMakes.OrderBy(s => s.Abrv);
+            //        break;
+            //    case "abrv_desc":
+            //        vehicleMakes = vehicleMakes.OrderByDescending(s => s.Abrv);
+            //        break;
+            //    default:
+            //        vehicleMakes = vehicleMakes.OrderBy(s => s.Name);
+            //        break;  
+            //}
+            ////return View(students.ToList());
+            
         }
+
+
 
         // GET: VehicleMakes/Details/5
         public ActionResult Details(Guid? id)
