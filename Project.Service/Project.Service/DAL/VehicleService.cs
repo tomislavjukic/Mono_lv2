@@ -36,10 +36,23 @@ namespace Project.Service.DAL
             return Mapper.Map<List<VehicleMakeViewModel>>(db.VehicleMakes.ToList());
         }
 
+        public List<VehicleModelViewModel> GetAllVehicleModels()
+        {
+
+            return Mapper.Map<List<VehicleModelViewModel>>(db.VehicleModels.ToList());
+        }
+
         public void CreateVehicleMake (VehicleMakeViewModel vehMakeVM)
         {
             //db.VehicleMakes.Add(vehicleMake);
             db.VehicleMakes.Add(Mapper.Map<VehicleMake>(vehMakeVM));
+            db.SaveChanges();
+        }
+
+        public void CreateVehicleModel(VehicleModelViewModel vehModelVM)
+        {
+            //db.VehicleMakes.Add(vehicleMake);
+            db.VehicleModels.Add(Mapper.Map<VehicleModel>(vehModelVM));
             db.SaveChanges();
         }
 
@@ -48,6 +61,13 @@ namespace Project.Service.DAL
             VehicleMake vehMake = db.VehicleMakes.Find(id);
             return Mapper.Map<VehicleMakeViewModel>(vehMake);
            // return 0;
+        }
+
+        public VehicleModelViewModel FindIdVehicleModel(Guid? id)
+        {
+            VehicleModel vehModel = db.VehicleModels.Find(id);
+            return Mapper.Map<VehicleModelViewModel>(vehModel);
+            // return 0;
         }
 
         public void DeleteVehicleMake(Guid? id)
@@ -61,9 +81,26 @@ namespace Project.Service.DAL
             db.SaveChanges();
         }
 
+        public void DeleteVehicleModel(Guid? id)
+        {
+            //VehicleMake vehicleMake = db.VehicleMakes.Find(id);
+            //db.VehicleMakes.Remove(vehicleMake);
+            //db.SaveChanges();
+            //return RedirectToAction("Index");
+            VehicleModel vehModel = db.VehicleModels.Find(id);
+            db.VehicleModels.Remove(vehModel);
+            db.SaveChanges();
+        }
+
         public void EditVehicleMake(VehicleMakeViewModel VehicleMakesVM)
         {
             db.Entry(Mapper.Map<VehicleMake>(VehicleMakesVM)).State = EntityState.Modified;
+            db.SaveChanges();
+        }
+
+        public void EditVehicleModel(VehicleModelViewModel VehicleModelVM)
+        {
+            db.Entry(Mapper.Map<VehicleModel>(VehicleModelVM)).State = EntityState.Modified;
             db.SaveChanges();
         }
 
