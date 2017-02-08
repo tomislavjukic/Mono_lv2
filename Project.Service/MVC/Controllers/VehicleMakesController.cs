@@ -23,9 +23,12 @@ namespace MVC.Controllers
         //{
         //    return View(vehicleService.GetAllVehicleMakes());
         //}
-        public ActionResult Index(string searchBy, string search, int? page)
+        public ActionResult Index(string searchBy, string search, int? page, string sortBy)
         {
-            return View(vehicleService.SortPageFilterMake(searchBy, search, page));
+            ViewBag.NameSortParm = String.IsNullOrEmpty(sortBy) ? "name_desc" : "";
+            ViewBag.AbrvSortParm = sortBy == "Abrv" ? "abrv_desc" : "Abrv";
+
+            return View(vehicleService.SortPageFilterMake(searchBy, search, page, sortBy));
         }
 
         //public ActionResult Index(string sortOrder, string searchBy, string search)

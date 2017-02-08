@@ -24,13 +24,13 @@
 <table class="table">
     <tr>
         <th>
-            @Html.DisplayNameFor(model => model.First().Name)
-            @*@Html.ActionLink("Name", "Index", new {searchBy = Request.QueryString["searchBy"], search = Request.QueryString["search"] })*@
+            @*@Html.DisplayNameFor(model => model.First().Name)*@
+            @Html.ActionLink("Name", "Index", new {searchBy = Request.QueryString["searchBy"], search = Request.QueryString["search"], sortBy = ViewBag.NameSortParm })
             @*@Html.ActionLink("Name", "Index", new { sortOrder = ViewBag.NameSortParm, searchBy })*@
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.First().Abrv)
-            @*@Html.ActionLink("Abrv", "Index", new { searchBy = Request.QueryString["searchBy"], search = Request.QueryString["search"] })*@
+            @*@Html.DisplayNameFor(model => model.First().Abrv)*@
+            @Html.ActionLink("Abrv", "Index", new { searchBy = Request.QueryString["searchBy"], search = Request.QueryString["search"], sortBy = ViewBag.AbrvSortParm })
             @*@Html.ActionLink("Abrv", "Index", new { sortOrder = ViewBag.AbrvSortParm })*@
         </th>
         <th></th>
