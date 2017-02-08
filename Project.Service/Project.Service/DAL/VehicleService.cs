@@ -7,6 +7,9 @@ using System.Text;
 using System.Threading.Tasks;
 using Project.Service.Models;
 using System.Data.Entity;
+using PagedList;
+using PagedList.Mvc;
+
 
 namespace Project.Service.DAL
 {
@@ -104,15 +107,16 @@ namespace Project.Service.DAL
             db.SaveChanges();
         }
 
-        public IEnumerable<VehicleMakeViewModel>SortPageFilterMake(string searchBy, string search)
+        public IPagedList<VehicleMakeViewModel>SortPageFilterMake(string searchBy, string search, int? page)
         {
             if(searchBy == "Abrv")
             {
-                return Mapper.Map<IEnumerable<VehicleMakeViewModel>>(db.VehicleMakes.Where(x => x.Abrv.Contains(search) || search == null).ToList());
+                return Mapper.Map<IEnumerable<VehicleMakeViewModel>>(db.VehicleMakes.Where(x => x.Abrv.Contains(search) || search == null)).ToPagedList(page ?? 1, 2);
             }
             else
             {
-                return Mapper.Map<IEnumerable<VehicleMakeViewModel>>(db.VehicleMakes.Where(x => x.Name.Contains(search) || search == null).ToList()); 
+                //return Mapper.Map<IEnumerable<VehicleMakeViewModel>>(db.VehicleMakes.Where(s => s.Name.Contains(search))).ToPagedList(page ?? 1, 3);
+                return Mapper.Map<IEnumerable<VehicleMakeViewModel>>(db.VehicleMakes.Where(x => x.Name.Contains(search) || search == null)).ToPagedList(page ?? 1, 2); 
             }
 
         }

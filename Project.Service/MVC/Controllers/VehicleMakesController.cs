@@ -9,6 +9,8 @@ using System.Web.Mvc;
 using Project.Service.DAL;
 using Project.Service.Models;
 using Project.Service.ViewModels;
+using PagedList;
+using PagedList.Mvc;
 
 namespace MVC.Controllers
 {
@@ -21,9 +23,9 @@ namespace MVC.Controllers
         //{
         //    return View(vehicleService.GetAllVehicleMakes());
         //}
-        public ActionResult Index(string searchBy, string search)
+        public ActionResult Index(string searchBy, string search, int? page)
         {
-            return View(vehicleService.SortPageFilterMake(searchBy, search));
+            return View(vehicleService.SortPageFilterMake(searchBy, search, page));
         }
 
         //public ActionResult Index(string sortOrder, string searchBy, string search)
