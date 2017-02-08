@@ -10,10 +10,10 @@
     @Html.ActionLink("Create New", "Create")
 </p>
 <p>
-    @using (Html.BeginForm("Index","VehicleMake", FormMethod.Get))
+    @using (Html.BeginForm("Index","VehicleMakes", FormMethod.Get))
     {
         <b>Search by: </b>@Html.RadioButton("searchBy", "Name", true) <text>Name</text>
-                      @Html.RadioButton("searchBy", "Abrv") <text>Abrv</text>
+                          @Html.RadioButton("searchBy", "Abrv") <text>Abrv</text>
     <br/>
     @Html.TextBox("search") <input type="submit" value="Search" />  
     }             
@@ -21,12 +21,14 @@
 <table class="table">
     <tr>
         <th>
-            @*@Html.DisplayNameFor(model => model.Name)*@
-            @Html.ActionLink("Name", "Index", new { sortOrder = ViewBag.NameSortParm })
+            @Html.DisplayNameFor(model => model.Name)
+            @Html.ActionLink("Name", "Index", new {searchBy = Request.QueryString["searchBy"], search = Request.QueryString["search"] })
+            @*@Html.ActionLink("Name", "Index", new { sortOrder = ViewBag.NameSortParm, searchBy })*@
         </th>
         <th>
-            @*@Html.DisplayNameFor(model => model.Abrv)*@
-            @Html.ActionLink("Abrv", "Index", new { sortOrder = ViewBag.AbrvSortParm })
+            @Html.DisplayNameFor(model => model.Abrv)
+            @Html.ActionLink("Abrv", "Index", new { searchBy = Request.QueryString["searchBy"], search = Request.QueryString["search"] })
+            @*@Html.ActionLink("Abrv", "Index", new { sortOrder = ViewBag.AbrvSortParm })*@
         </th>
         <th></th>
     </tr>

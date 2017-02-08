@@ -104,27 +104,39 @@ namespace Project.Service.DAL
             db.SaveChanges();
         }
 
-
-        public IEnumerable<VehicleMakeViewModel>SortMake(string sortOrder, string searchBy, string search)
+        public IEnumerable<VehicleMakeViewModel>SortPageFilterMake(string searchBy, string search)
         {
-            switch (sortOrder)
+            if(searchBy == "Abrv")
             {
-                case "name_desc":
-                    return Mapper.Map<IEnumerable<VehicleMakeViewModel>>(db.VehicleMakes.OrderByDescending(s => s.Name).ToList());
-                case "Abrv":
-                    //return vehicleMakes.OrderBy(s => s.Abrv);
-                    return Mapper.Map<IEnumerable<VehicleMakeViewModel>>(db.VehicleMakes.OrderBy(s => s.Abrv).ToList());
-                case "abrv_desc":
-                    return Mapper.Map<IEnumerable<VehicleMakeViewModel>>(db.VehicleMakes.OrderByDescending(s => s.Abrv).ToList());
-                    //vehicleMakes.OrderByDescending(s => s.Abrv);
-                default:
-                    return Mapper.Map<IEnumerable<VehicleMakeViewModel>>(db.VehicleMakes.OrderBy(s => s.Name).ToList());
-                    //vehicleMakes.OrderBy(s => s.Name);
-                    //break;
+                return Mapper.Map<IEnumerable<VehicleMakeViewModel>>(db.VehicleMakes.Where(x => x.Abrv.Contains(search) || search == null).ToList());
             }
-           //return View(students.ToList());
-           //return 
+            else
+            {
+                return Mapper.Map<IEnumerable<VehicleMakeViewModel>>(db.VehicleMakes.Where(x => x.Name.Contains(search) || search == null).ToList()); 
+            }
+
         }
+        //public IEnumerable<VehicleMakeViewModel>SortMake(string sortOrder, string searchBy, string search)
+        //{
+
+        //    //switch (sortOrder)
+        //    //{
+        //    //    case "name_desc":
+        //    //        return Mapper.Map<IEnumerable<VehicleMakeViewModel>>(db.VehicleMakes.OrderByDescending(s => s.Name).ToList());
+        //    //    case "Abrv":
+        //    //        //return vehicleMakes.OrderBy(s => s.Abrv);
+        //    //        return Mapper.Map<IEnumerable<VehicleMakeViewModel>>(db.VehicleMakes.OrderBy(s => s.Abrv).ToList());
+        //    //    case "abrv_desc":
+        //    //        return Mapper.Map<IEnumerable<VehicleMakeViewModel>>(db.VehicleMakes.OrderByDescending(s => s.Abrv).ToList());
+        //    //        //vehicleMakes.OrderByDescending(s => s.Abrv);
+        //    //    default:
+        //    //        return Mapper.Map<IEnumerable<VehicleMakeViewModel>>(db.VehicleMakes.OrderBy(s => s.Name).ToList());
+        //    //        //vehicleMakes.OrderBy(s => s.Name);
+        //    //        //break;
+        //    //}
+        //   //return View(students.ToList());
+        //   //return 
+        //}
 
         //public IEnumerable<VehicleMakeViewModel> FilterMake(string searchBy, string search)
         //{
