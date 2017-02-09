@@ -14,15 +14,30 @@ namespace MVC.Controllers
 {
     public class VehicleModelsController : Controller
     {
-        VehicleService vehicleService = new VehicleService();
+        VehicleService vehicleService;
+
+        public VehicleModelsController()
+        {
+            vehicleService = VehicleService.Instance;
+        }
 
         // GET: VehicleModels
-        public ActionResult Index()
+        //public ActionResult Index()
+        //{
+        //    //var vehicleModels = db.VehicleModels.Include(v => v.VehicleMake);
+        //    //var vehickeModels = vehicleService.GetAllVehicleModels();
+        //    //return View(vehicleModels.ToList());
+        //    return View(vehicleService.GetAllVehicleModels());
+        //}
+
+        public ActionResult Index(string searchBy, string search, int? page, string sortBy)
         {
-            //var vehicleModels = db.VehicleModels.Include(v => v.VehicleMake);
-            //var vehickeModels = vehicleService.GetAllVehicleModels();
-            //return View(vehicleModels.ToList());
-            return View(vehicleService.GetAllVehicleModels());
+            ViewBag.MakersNameSortParm = String.IsNullOrEmpty(sortBy) ? "makers_desc" : "";
+            ViewBag.AbrvSortParm = sortBy == "Abrv" ? "abrv_desc" : "Abrv";
+            ViewBag.NameSortParm = sortBy == "Name" ? "name_desc" : "Name";
+
+
+            return View(vehicleService.SortPageFilterModel(searchBy, search, page, sortBy));
         }
 
         // GET: VehicleModels/Details/5

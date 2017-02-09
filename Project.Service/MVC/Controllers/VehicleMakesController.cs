@@ -16,7 +16,12 @@ namespace MVC.Controllers
 {
     public class VehicleMakesController : Controller
     {
-        VehicleService vehicleService = new VehicleService();
+        VehicleService vehicleService;
+
+        public VehicleMakesController()
+        {
+            vehicleService = VehicleService.Instance;
+        }
 
         // GET: VehicleMakes
         //public ActionResult Index()
@@ -28,7 +33,8 @@ namespace MVC.Controllers
             ViewBag.NameSortParm = String.IsNullOrEmpty(sortBy) ? "name_desc" : "";
             ViewBag.AbrvSortParm = sortBy == "Abrv" ? "abrv_desc" : "Abrv";
 
-            return View(vehicleService.SortPageFilterMake(searchBy, search, page, sortBy));
+
+            return View(vehicleService.SortPageFilterMake(searchBy, search, page, sortBy));    
         }
 
         //public ActionResult Index(string sortOrder, string searchBy, string search)
